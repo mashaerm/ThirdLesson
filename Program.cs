@@ -360,5 +360,146 @@ void Task38()
     Console.WriteLine($"Разница между максимальным и минимальным элементами массива = {max - min}");
 }
 
+void Task39()
+{   
+    //Напишите программу, которая перевернет одномерный массив
+    
+    int size = 6;
+    int[] numbers = new int[size];
+    FillArray(numbers);
+    PrintArray(numbers);
+
+    int halfSize = numbers.Length/2;
+    int lastIndex = numbers.Length - 1;
+    for (int i = 0; i < halfSize; i++)
+    {
+        // int temp = numbers[i];
+        // numbers[i] = numbers[lastIndex - i];
+        // numbers[lastIndex - i] = temp;
+
+        (numbers[i], numbers[lastIndex -i]) = (numbers[lastIndex - i], numbers[i]);
+    }
+
+    PrintArray(numbers);
+}
+
+void Task40()
+{   
+    //Напишите программу, которая принимает на вход три числа и проверяет, может ли существовать треугольник со сторонами такой длины
+    
+    int a = Input("Введите число a: ");
+    int b = Input("Введите число b: ");
+    int c = Input("Введите число c: ");
+    
+    if (a + b > c & a + c > b & b + c > a)
+    {
+        Console.WriteLine("Треугольник существует");
+    }
+
+    else
+    {
+        Console.WriteLine("Треугольник не существует");
+    }
+
+}
+
+void Task42()
+{   
+    //Напишите программу, которая будет преобразовывать десятичное число в двоичное
+    
+    // int number = 47;
+    // int result = 0;
+    // int bias = 1;
+    
+    // while (number > 0)
+    // {
+    //     result += number % 2 * bias;
+    //     number /= 2;
+    //     bias *= 10;
+    // }
+
+    //  Console.WriteLine($"{result}");
+
+    int number = 47;
+    string result = "";
+    
+    while (number > 0)
+    {
+        result = number % 2 + result;
+        number /= 2;
+    }
+
+     Console.WriteLine($"{result}");
+}
+
+void Task44()
+{   
+    //Не используя рекурсию, выведите первые N чисел Фибоначчи
+
+    int f_num = 0;
+    int s_num = 1;
+    int count = Input("Введите количество элементов: ");
+    
+    for (int i = 1; i <= count; i++)
+    {
+        Console.WriteLine($"{i}. {f_num}");
+        // int temp = f_num;
+        // f_num = s_num;
+        // s_num = s_num + temp;
+        (f_num, s_num) = (s_num, f_num + s_num);
+    }
+}
+
+void Task45()
+{   
+    //Напишите программу, которая будет создавать копию заданного массива с помощью поэлементного копирования
+    
+    int size = 6;
+    int[] numbers = new int[size];
+    FillArray(numbers);
+    PrintArray(numbers);
+
+    int[] copynumbers = new int[numbers.Length];
+
+    for (int i = 0; i < numbers.Length; i++)
+    {
+        copynumbers[i] = numbers[i];
+    }
+
+    PrintArray(numbers);
+}
+
+void Task41()
+{   
+    //Пользователь вводит с клавиатуры М чисел. Посчитайте, сколько чисел больше 0 ввел пользователь
+    
+    int size = Input("Введите размер массива ");
+    int count = 0;
+    for (int i = 1; i <= size; i++)
+    {
+        int number = Input($"Введите {i} элемент ");
+        if (number > 0) count++;
+    }
+
+    Console.WriteLine($"Количество чисел больше 0 = {count}");
+}
+
+void Task43()
+{   
+    //Напишите программу, которая найдет точку пересечения двух прямых, заданных уравнением y1=k1 * x + b1, y2=k2 * x + b2
+    
+    int k1 = Input("Введите k1 ");
+    int b1 = Input("Введите b1 ");
+    int k2 = Input("Введите k2 ");
+    int b2 = Input("Введите b2 ");
+
+    double x = (b2 -b1)/(k1 - k2);
+    double y1 = k1 * x + b1;
+    double y2 = k2 * x + b2;
+
+    Console.WriteLine($"A({x}, {y1})");
+    Console.WriteLine($"B({x}, {y2})");
+}
+
 Console.Clear();
-Task38();
+Task43();
