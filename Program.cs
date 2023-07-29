@@ -14,12 +14,13 @@ void FillArray(int[] numbers, int minValue = -9, int maxValue = 9)
     }  
 }
 
-void FilArray(double[] numbers)
+void FilArray(double[] numbers, int minValue = -9, int maxValue = 9)
 {
+    maxValue++;
     Random rnd = new Random();
     for (int i = 0; i < numbers.Length; i++)
     {
-        numbers[i] = rnd.NextDouble();
+        numbers[i] = rnd.NextDouble() * (maxValue - minValue) + minValue;
         numbers[i] = Math.Round(numbers[i], 2);
     }  
 }
@@ -31,6 +32,32 @@ void PrinArray (double[] numbers)
         Console.Write($"{numbers[i]} ");
     }
     Console.WriteLine();
+}
+
+void FillcArray(double[,] matrix, int minValue = -9, int maxValue = 9)
+ {  
+    maxValue++;
+    Random rnd = new Random();
+    for (int i = 0; i < matrix.GetLength(0); i++)
+    {
+        for (int j = 0; j < matrix.GetLength(1); j++)
+        {
+            matrix[i,j] = rnd.NextDouble() * (maxValue - minValue) + minValue;
+            matrix[i,j] = Math.Round(matrix[i,j], 1);
+        }
+    }
+ }
+
+void PrintcArray(double[,] matrix)
+{
+    for (int i = 0; i < matrix.GetLength(0); i++)
+    {
+        for (int j = 0; j < matrix.GetLength(1); j++)
+        {
+            Console.Write($"{matrix[i, j]}\t");
+        }
+        Console.WriteLine();
+    }
 }
 
 void PrintArray (int[] numbers)
@@ -60,6 +87,31 @@ int SumNegative (int[] numbers)
         if (numbers[i] < 0) sumNegative += numbers[i];
     }
     return sumNegative;
+}
+
+void FillsArray(int[,] matrix, int minValue = -9, int maxValue = 9)
+ {  
+    maxValue++;
+    Random rnd = new Random();
+    for (int i = 0; i < matrix.GetLength(0); i++)
+    {
+        for (int j = 0; j < matrix.GetLength(1); j++)
+        {
+            matrix[i,j] = rnd.Next(minValue, maxValue);
+        }
+    }
+ }
+
+void PrintsArray(int[,] matrix)
+{
+    for (int i = 0; i < matrix.GetLength(0); i++)
+    {
+        for (int j = 0; j < matrix.GetLength(1); j++)
+        {
+            Console.Write($"{matrix[i, j]}\t");
+        }
+        Console.WriteLine();
+    }
 }
 
 void Task24()
@@ -501,5 +553,147 @@ void Task43()
     Console.WriteLine($"B({x}, {y2})");
 }
 
+void Task46()
+{   
+    //Задайте двумерный массив размером mхn, заполненный случайными целыми числами
+    
+    int rows = 4;
+    int columns = 7;
+
+    int[,] matrix = new int[rows, columns];
+
+    FillsArray(matrix);
+    PrintsArray(matrix);
+}
+
+void Task48()
+{   
+    //Задайте двумерный массив размером mхn, каждый элемент в массиве находится по формуле A = i+j
+    
+    int rows = 4;
+    int columns = 7;
+
+    int[,] matrix = new int[rows, columns];
+    
+    for (int i = 0; i < matrix.GetLength(0); i++)
+    {
+        for (int j = 0; j < matrix.GetLength(1); j++)
+        {
+            matrix[i,j] = i + j;
+        }
+    }
+
+    PrintsArray(matrix);
+}
+
+void Task49()
+{   
+    //Задайте двумерный массив. Найдите элементы, у которых оба индекса четные, и замените эти элементы на их квадраты
+    
+    int rows = 3;
+    int columns = 8;
+
+    int[,] matrix = new int[rows, columns];
+    FillsArray(matrix, 4, 9);
+    PrintsArray(matrix);
+    Console.ReadKey();
+    Console.WriteLine();
+
+    for (int i = 0; i < matrix.GetLength(0); i += 2)
+    {
+        for (int j = 0; j < matrix.GetLength(1); j += 2)
+        {
+            if (i % 2 == 0 && j % 2 == 0) matrix[i, j] *= matrix[i, j];
+        }
+    }
+
+    PrintsArray(matrix);
+}
+
+void Task51()
+{   
+    //Задайте двумерный массив. Найдите сумму элементов, находящихся на главной диагонали
+    
+    int rows = 6;
+    int columns = 4;
+
+    int[,] matrix = new int[rows, columns];
+    FillsArray(matrix, 0, 6);
+    PrintsArray(matrix);
+
+    int sum = 0;
+    int minSize = matrix.GetLength(0) < matrix.GetLength(1)? matrix.GetLength(0): matrix.GetLength(1);
+    // if(matrix.GetLength(0) < matrix.GetLength(1)) minSize = matrix.GetLength(0);
+    // else minSize = matrix.GetLength(1);
+
+    for (int i = 0; i < minSize; i++)
+    {
+        sum += matrix[i, i];
+    }
+    Console.WriteLine($"Сумма равна {sum}");
+}
+
+void Task47()
+{   
+    //Задайте двумерный массив размером mхn, заполненный случайными вещественными числами, округленными до одного знака
+    
+    int rows = 4;
+    int columns = 7;
+
+    double[,] matrix = new double[rows, columns];
+
+    FillcArray(matrix);
+    PrintcArray(matrix);
+}
+
+void Task50()
+{   
+    //Напишите программу, которая на вход принимает индексы элемента в двумерном массиве, и возвращает значение этого элемента или же указание, что такого элемента нет
+    
+    int rows = 4;
+    int columns = 7;
+
+    int[,] matrix = new int[rows, columns];
+
+    FillsArray(matrix);
+    PrintsArray(matrix);
+
+    int indexRw = Input("Введите индекс строки: ");
+    int indexCl = Input("Введите индекс столбца: ");
+
+    if (indexRw < rows && indexCl < columns && indexRw >= 0 && indexCl >= 0)
+    {
+        Console.WriteLine($"{matrix[indexRw, indexCl]}");
+    }
+    else 
+    {
+        Console.WriteLine("Такого элемента нет");
+    }
+}
+
+void Task52()
+{   
+    //Задайте двумерный массив из целых чисел. Найдите среднее арифметическое элементов в каждом столбце
+    
+    int rows = 4;
+    int columns = 7;
+
+    int[,] matrix = new int[rows, columns];
+
+    double sum = 0;
+    FillsArray(matrix);
+    PrintsArray(matrix);
+
+    for (int j = 0; j < matrix.GetLength(1); j++)
+    {
+        for (int i = 0; i < matrix.GetLength(0); i++)
+        {
+            sum += matrix[i, j];
+        }
+        double sumSr = sum/rows;
+        Console.Write($"{sumSr}");
+    }
+}
+
 Console.Clear();
-Task43();
+Task52();
