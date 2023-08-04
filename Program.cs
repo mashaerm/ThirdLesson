@@ -695,5 +695,228 @@ void Task52()
     }
 }
 
+void Task53()
+{   
+    //Задайте двумерный массив. Напишите программу, которая поменяет местами последнюю и первую строки массива
+    
+    int rows = 4;
+    int columns = 5;
+    int[,] numbers = new int[rows, columns];
+
+    FillsArray(numbers, 0, 9);
+    PrintsArray(numbers);
+
+    int indexFirstRow = 0;
+    int indexLastRow = numbers.GetLength(0) - 1;
+
+    for (int j = 0; j < columns; j++)
+    {
+        int temp = numbers[indexFirstRow, j];
+        numbers[indexFirstRow, j] = numbers[indexLastRow, j];
+        numbers[indexLastRow, j] = temp;
+    }
+    Console.WriteLine();
+    PrintsArray(numbers);
+}
+
+void Task55()
+{   
+    //Задайте двумерный массив. Напишите программу, которая заменяет строки на столбцы
+    
+    int rows = 4;
+    int columns = rows;
+    int[,] numbers = new int[rows, columns];
+
+    FillsArray(numbers, 0, 9);
+    PrintsArray(numbers);
+
+    for (int i = 0; i < rows; i++)
+    {
+        for (int j = i; j < columns; j++)
+        {
+            int temp = numbers[i, j];
+            numbers[i, j] = numbers[j, i];
+            numbers[j, i] = temp;
+        }
+    }
+
+    Console.WriteLine();
+    PrintsArray(numbers);
+}
+
+void Task57()
+{   
+    //Составить частотный словарь элементов двумерного массива. Частотный словарь содержит информацию, о том, сколько раз встречается элемент входных данных
+    
+    int rows = 2;
+    int columns = rows;
+    int[,] numbers = new int[rows, columns];
+
+    int a = -5;
+    int b = 8;
+    FillsArray(numbers, a, b);
+    PrintsArray(numbers);
+
+    int size = b - a + 1;
+    int[] dictionary = new int[size];
+
+     for (int i = 0; i < rows; i++)
+    {
+        for (int j = i; j < columns; j++)
+        {
+          dictionary[numbers[i, j] - a]++;
+        }
+    }
+
+    Console.WriteLine();
+    for (int i=0; i < size; i++)
+    {
+        if (dictionary[i] != 0) Console.WriteLine($"Элемент {i + a} встречается {dictionary[i]} раз(-a)");
+    }
+}
+
+void Task59()
+{   
+    //Задайте двумерный массив из целых чисел. Напишите программу, которая удалит троку и столбец, на пересечение которых расположен наименьший элемент массива
+    
+    int rows = 5;
+    int columns = 6;
+    int[,] numbers = new int[rows, columns];
+
+    FillsArray(numbers, -100, 100);
+    PrintsArray(numbers);
+
+    int rowResult = rows - 1;
+    int columnResult = columns - 1;
+
+    int[,] result = new int[rows - 1, columns - 1];
+
+    int minValue = numbers[0, 0];
+    int i_min = 0;
+    int j_min = 0;
+
+    for (int i = 0; i < rows; i++)
+    {
+        for (int j = i; j < columns; j++)
+        {
+            if (numbers[i, j] < minValue)
+            {
+                minValue = numbers[i, j];
+                i_min = i;
+                j_min = j;
+            }
+        }
+    }
+
+    Console.WriteLine();
+    Console.WriteLine($"Минимальное значение {minValue} находится в позиции {i_min + 1}, {j_min + 1}");
+
+    int bias_i = 0;
+    int bias_j = 0;
+
+    for (int i = 0; i < rowResult; i++)
+    {
+        if (i == i_min) bias_i++;
+        bias_j = 0;
+        for (int j = i; j < columnResult; j++)
+        {
+            if (j == j_min) bias_j++;
+            result[i, j] = numbers[i + bias_i, j + bias_j];
+        }
+    }
+
+    Console.WriteLine();
+    PrintsArray(result);
+}
+
+void Task54()
+{   
+    //Задайте двумерный массив. Напишите программу, которая упорядочит по убыванию элементы каждой строки двумерного массива
+    
+    int rows = 4;
+    int columns = 5;
+    int[,] numbers = new int[rows, columns];
+
+    FillsArray(numbers);
+    PrintsArray(numbers);
+
+    for (int i = 0; i < rows; i++)
+    {
+        for (int j = 0; j < columns; j++)
+        {
+            for (int k = 0; k < columns - j - 1; k++)
+            {
+                if (numbers[i, k] < numbers[i, k + 1])
+                {
+                    int temp = numbers[i, k + 1];
+                    numbers[i, k + 1] = numbers[i, k];
+                    numbers[i, k] = temp;
+                }
+            }
+        }
+    }
+
+    Console.WriteLine();
+    PrintsArray(numbers);
+}
+
+void Task56()
+{   
+    //Задайте прямоугольный двумерный массив. Напишите программу, которая будет находить строку с наименьшей суммой элементов
+    
+    int rows = 4;
+    int columns = 5;
+    int[,] numbers = new int[rows, columns];
+
+    FillsArray(numbers);
+    PrintsArray(numbers);
+    int minSum = Int32.MaxValue;
+    int minIn = 0;
+
+    for (int i = 0; i < rows; i++)
+    {
+        int sum = 0;
+        for (int j = 0; j < columns; j++)
+        {
+            sum += numbers[i, j];
+        }
+
+        if (minSum > sum)
+        {
+            minSum = sum;
+            minIn = i;
+        }
+    }
+
+    Console.WriteLine($"Строка с наименьшей суммой {minIn} и сумма равна {minSum}");
+}
+
+void Task58()
+{   
+    //Заполните спирально массив 4 на 4 числами от 1 до 16
+    
+    int rows = 4;
+    int columns = 4;
+    int[,] numbers = new int[rows, columns];
+
+    int temp = 1;
+    int i = 0;
+    int j = 0;
+
+    while (temp <= rows * columns)
+    {
+        numbers[i, j] = temp;
+        temp++;
+        if (i <= j + 1 && i + j < columns - 1) j++;
+        else if (i < j && i + j >= rows - 1) i++;
+        else if (i >= j && i + j > columns - 1) j--;
+        else i--;
+    }
+
+    Console.WriteLine();
+    PrintsArray(numbers);
+}
+
+
 Console.Clear();
-Task52();
+Task58();
