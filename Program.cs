@@ -917,6 +917,139 @@ void Task58()
     PrintsArray(numbers);
 }
 
+void Recursion63(int counter, int number)
+{
+    if (counter > number) return;
+    Console.WriteLine(counter);
+    counter++;
+    Recursion63(counter, number);
+}
 
-Console.Clear();
-Task58();
+void Task63()
+{   
+    //Задайте значение N. Напишите программу, которая выведет все натуральные числа в промежутке от 1 до N
+    
+    int number = Input("Введите число ");
+    int counter = 1;
+
+    while (counter <= number)
+    {
+        Console.WriteLine(counter);
+        counter++;
+    }
+}
+
+void Task65()
+{   
+    //Задайте значение M и N. Напишите программу, которая выведет все натуральные числа в промежутке от M до N
+    
+    int number = Input("Введите число ");
+    int numbersec = Input("Введите второе число ");
+
+    while (numbersec <= number)
+    {
+        Console.WriteLine(numbersec);
+        numbersec++;
+    }
+}
+
+void Recursion65(int numbersec, int number)
+{
+    if (numbersec > number) return;
+    Console.WriteLine(numbersec);
+    Recursion65(numbersec + 1, number);
+    Console.WriteLine(numbersec);
+}
+
+void Task67()
+{   
+    //Напишите программу, которая будет принимать на вход число и возвращать сумму его чисел
+}
+
+int Recursion67(int number, int sum = 0)
+{
+    if (number == 0) 
+    {
+        return sum;
+    }
+
+    sum += number % 10;
+    number /= 10;
+    return Recursion67(number, sum);
+}
+
+void Task68()
+{   
+    //Напишите программу, которая на вход принимает два числа A и B, и возводит число A в целую степень B с помощью рекурсии
+
+int Recursion69(int a, int b, int result = 1)
+{
+    if (b == 0) 
+    {
+        return result;
+    }
+
+    result *= a;
+    b--;
+    return Recursion69(a, b, result);
+}
+
+int a = Input("Введите число a ");
+int b = Input("Введите число b ");
+Console.WriteLine($"{a}^{b}={Recursion69(a, b)}");
+}
+
+// Task64()
+//Задайте значение M и N. Напишите программу, которая выведет все натуральные числа кратные 3-ем в промежутке от M до N
+
+// int number = Input("Введите число ");
+// int numbersec = Input("Введите второе число ");
+
+
+// void Recursion64(int numbersec, int number)
+// {
+//     if (numbersec < number) return;
+//     if (numbersec % 3 == 0) Console.WriteLine(numbersec);
+//     Recursion64(numbersec - 1, number);
+// }
+
+// Console.Clear();
+// Recursion64(numbersec, number);
+
+// Task66()
+//Задайте значение M и N. Напишите рекурсивный метод, который найдет сумму натуральных элементов в промежутке от M до N
+
+// int number = Input("Введите число ");
+// int numbersec = Input("Введите второе число ");
+
+// int Recursion66(int number, int numbersec)
+// {
+//     int temp = number;
+//     if (number == numbersec)
+//         return 0;
+//     else
+//     {
+//         number++;
+//         temp = number + Recursion66(number, numbersec);
+//         return temp;
+//     }
+// }
+
+// Console.Clear();
+// Console.WriteLine(Recursion66(number - 1, numbersec));
+
+// Task68()
+//Напишите программу вычисления функции Аккермана с помощью рекурсии
+
+// int number = Input("Введите число ");
+// int numbersec = Input("Введите второе число ");
+
+// int Recursion68(int number, int numbersec)
+// {
+// if (number == 0) return numbersec + 1;
+// else if (numbersec == 0) return Recursion68(number - 1, 1);
+// else return Recursion68(number - 1, Recursion68(number, numbersec - 1));
+// }
+
+// Console.Clear();
+// Console.Write($"Функция Аккермана равно {Recursion68(number, numbersec)}");
